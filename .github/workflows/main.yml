@@ -1,0 +1,21 @@
+name: Build EXE on Windows
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    - name: Install PyInstaller
+      run: pip install pyinstaller
+    - name: Build EXE
+      run: pyinstaller --onefile main.py
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MyExecutableBot
+        path: dist/main.exe
+        
